@@ -2,7 +2,7 @@ sudo: required
 services:
   - docker
 
-after_success:
+install:
   - docker build -t fseithe/multi-client ./client
   - docker build -t fseithe/multi-nginx ./nginx
   - docker build -t fseithe/multi-server ./server
