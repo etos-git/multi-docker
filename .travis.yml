@@ -1,0 +1,20 @@
+sudo required
+services:
+  -docker
+
+before_install:
+  -docker build -t etos-git/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  -docker run test etos-git/react-test npm test -- --coverage
+
+after_success:
+  -docker build -t etos-git/multi-client ./client
+  -docker build -t etos-git/multi-nginx ./nginx
+  -docker build -t etos-git/multi-server ./server
+  -docker build -t etos-git/multi-worker ./worker
+  -echo "$DOCKER_PA SSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  -docher push etos-git/multi-client
+  -docher push etos-git/multi-nginx
+  -docher push etos-git/multi-server
+  -docher push etos-git/multi-worker
