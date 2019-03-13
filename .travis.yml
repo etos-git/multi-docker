@@ -3,18 +3,18 @@ services:
   -docker
 
 before_install:
-  -docker build -t etos-git/react-test -f ./client/Dockerfile.dev ./client
+  -docker build -t fseithe/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  -docker run test etos-git/react-test npm test -- --coverage
+  -docker run test fseithe/react-test npm test -- --coverage
 
 after_success:
-  -docker build -t etos-git/multi-client ./client
-  -docker build -t etos-git/multi-nginx ./nginx
-  -docker build -t etos-git/multi-server ./server
-  -docker build -t etos-git/multi-worker ./worker
+  -docker build -t fseithe/multi-client ./client
+  -docker build -t fseithe/multi-nginx ./nginx
+  -docker build -t fseithe/multi-server ./server
+  -docker build -t fseithe/multi-worker ./worker
   -echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  -docker push etos-git/multi-client
-  -docker push etos-git/multi-nginx
-  -docker push etos-git/multi-server
-  -docker push etos-git/multi-worker
+  -docker push fseithe/multi-client
+  -docker push fseithe/multi-nginx
+  -docker push fseithe/multi-server
+  -docker push fseithe/multi-worker
