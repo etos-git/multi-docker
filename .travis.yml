@@ -1,8 +1,15 @@
 sudo: required
+
 services:
   - docker
 
-install:
+before_install:
+  - docker build -t fseithe/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run test fseithe/react-test npm test -- --coverage
+
+after_success:
   - docker build -t fseithe/multi-client ./client
   - docker build -t fseithe/multi-nginx ./nginx
   - docker build -t fseithe/multi-server ./server
