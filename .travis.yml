@@ -3,7 +3,6 @@ services:
   - docker
 
 before_install:
-  - chmod +x mvnw
   - docker build -t fseithe/react-test -f ./client/Dockerfile.dev ./client
 
 script:
