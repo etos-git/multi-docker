@@ -18,3 +18,4 @@ after_success:
   - docker push fseithe/multi-nginx
   - docker push fseithe/multi-server
   - docker push fseithe/multi-worker
+  
