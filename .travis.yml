@@ -13,7 +13,8 @@ after_success:
   - docker build -t fseithe/multi-nginx ./nginx
   - docker build -t fseithe/multi-server ./server
   - docker build -t fseithe/multi-worker ./worker
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push fseithe/multi-client
   - docker push fseithe/multi-nginx
   - docker push fseithe/multi-server
