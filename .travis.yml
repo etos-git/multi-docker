@@ -1,4 +1,4 @@
-sudo: required 
+sudo: required
 services:
   - docker
 
@@ -13,10 +13,23 @@ after_success:
   - docker build -t fseithe/multi-nginx ./nginx
   - docker build -t fseithe/multi-server ./server
   - docker build -t fseithe/multi-worker ./worker
-
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
   - docker push fseithe/multi-client
   - docker push fseithe/multi-nginx
   - docker push fseithe/multi-server
   - docker push fseithe/multi-worker
-  
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-1
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-us-west-1-306476627547
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY

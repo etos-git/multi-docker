@@ -40,7 +40,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/values/all', async (req, res) => {
-  console.log (keys.pgHost)
   const values = await pgClient.query('SELECT * from values');
 
   res.send(values.rows);
