@@ -8,5 +8,6 @@ spec:
   containers:
     - name: client
       image: fseithe/multi-client
+      imagePullPolicy: IfNotPresent
       ports:
         - containerPort: 3000
